@@ -15,5 +15,4 @@ and how much they cost (claim severity), by driver, vehicle and region character
 - Dataset: freMTPL2, French motor third-party liability insurance, published on OpenML
   in two tables: `freMTPL2freq` (one row per policy) and `freMTPL2sev` (one row per claim).
 - License: CC0 (public domain), as listed on OpenML. Original source: the CASdatasets R package.
-- The CSV files are not stored in this repository because of their size and their own license.
-  To reproduce the project, run `scripts/bajar_fremtpl2.py`.
+- The CSV files are not stored in this repository because of their size. To reproduce the project, run `scripts/bajar_fremtpl2.py`.
