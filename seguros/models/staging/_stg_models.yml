@@ -1,0 +1,7 @@
+version: 2
+
+models:
+  - name: stg_polizas
+    columns:
+      - name: poliza_id
+        data_tests: [unique, not_null]

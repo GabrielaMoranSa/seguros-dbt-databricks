@@ -1,0 +1,7 @@
+data/
+seguros/target/
+seguros/logs/
+seguros/dbt_packages/
+.venv/
+.DS_Store
+logs/
