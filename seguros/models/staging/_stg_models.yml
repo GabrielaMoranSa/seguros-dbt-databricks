@@ -5,3 +5,15 @@ models:
     columns:
       - name: poliza_id
         data_tests: [unique, not_null]
+  - name: stg_siniestros
+    columns:
+      - name: siniestro_id
+        data_tests:  [unique, not_null]
+      - name: poliza_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_polizas')
+                field: poliza_id
+              config:
+                severity: warn

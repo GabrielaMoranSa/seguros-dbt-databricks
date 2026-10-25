@@ -180,36 +180,36 @@ def cargar_todo(resumen):
 def main():
     configurar_logging()
     resumen = {"inicio": datetime.now().isoformat(timespec="seconds"), "archivos": {}}
-
-    # 1. Validar los dos archivos. Si uno falla, no se carga ninguno.
-    # En cada vuelta, validar es una de tus dos funciones: en Python una función
-    # se puede guardar en una lista, como cualquier valor, y llamarse después.
-    hay_problemas = False
-    for tabla, validar in [("fremtpl2_freq", validar_freq), ("fremtpl2_sev", validar_sev)]:
-        ruta = RUTAS[tabla]
-        df, problemas = validar(ruta)
-        registrar(ruta, df, problemas)
-        resumen["archivos"][ruta.name] = {"filas_leidas": None if df is None else len(df),
-                                          "problemas": problemas}
-        if problemas:
-            hay_problemas = True
-
-    # 2. Decidir: con problemas, no se toca workspace.raw.
-    if hay_problemas:
-        log.error("carga detenida: hay problemas de validación, workspace.raw no se toca")
-        codigo = 1
-    else:
-        cargar_todo(resumen)
-        log.info("carga terminada")
-        codigo = 0
-
-    # 3. Dejar el resumen para quien venga detrás.
-    resumen["fin"] = datetime.now().isoformat(timespec="seconds")
-    resumen["codigo_salida"] = codigo
-    Path("logs/ultima_carga.json").write_text(
-        json.dumps(resumen, indent=2, ensure_ascii=False), encoding="utf-8")
+    codigo = 1
+    try:
+        # 1. Validar los dos archivos. Si uno falla, no se carga ninguno.
+        hay_problemas = False
+        for tabla, validar in [("fremtpl2_freq", validar_freq), ("fremtpl2_sev", validar_sev)]:
+            ruta = RUTAS[tabla]
+            df, problemas = validar(ruta)
+            registrar(ruta, df, problemas)
+            resumen["archivos"][ruta.name] = {"filas_leidas": None if df is None else len(df),
+                                              "problemas": problemas}
+            if problemas:
+                hay_problemas = True
+        # 2. Decidir: con problemas, no se toca workspace.raw.
+        if hay_problemas:
+            log.error("carga detenida: hay problemas de validación, workspace.raw no se toca")
+        else:
+            cargar_todo(resumen)
+            log.info("carga terminada")
+            codigo = 0
+    except Exception as error:
+        # 3. Lo inesperado también deja rastro: el ERROR con su traceback, en el log.
+        log.exception("carga interrumpida por un error inesperado")
+        resumen["error"] = type(error).__name__
+    finally:
+        # 4. El resumen se escribe siempre, haya ido bien o mal.
+        resumen["fin"] = datetime.now().isoformat(timespec="seconds")
+        resumen["codigo_salida"] = codigo
+        Path("logs/ultima_carga.json").write_text(
+            json.dumps(resumen, indent=2, ensure_ascii=False), encoding="utf-8")
     return codigo
-
 
 if __name__ == "__main__":
     sys.exit(main())
