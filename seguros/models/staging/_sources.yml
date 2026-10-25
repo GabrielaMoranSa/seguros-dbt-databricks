@@ -6,4 +6,32 @@ sources:
     schema: raw
     tables:
       - name: fremtpl2_freq
+        columns:
+          - name: IDpol
+            data_tests:
+              - unique
+              - not_null
+              - relationships:
+                  arguments:
+                    to: source('raw', 'fremtpl2_sev')
+                    field: IDpol
+                  config:
+                    where: "ClaimNb > 0"
+                    severity: warn
       - name: fremtpl2_sev
+        columns:
+          - name: IDpol
+            data_tests:
+              - not_null
+              - relationships:
+                  arguments:
+                    to: source('raw', 'fremtpl2_freq')
+                    field: IDpol
+                  config:
+                    severity: warn
+    config:
+      freshness:
+        warn_after: {count: 24, period: hour}
+        error_after: {count: 48, period: hour}
+      loaded_at_field: _loaded_at
+
