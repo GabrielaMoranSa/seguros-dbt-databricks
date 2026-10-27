@@ -5,10 +5,16 @@ models:
     columns:
       - name: poliza_id
         data_tests: [unique, not_null]
+      - name: region
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('regiones')
+                field: codigo_region
   - name: stg_siniestros
     columns:
       - name: siniestro_id
-        data_tests:  [unique, not_null]
+        data_tests: [unique, not_null]
       - name: poliza_id
         data_tests:
           - relationships:
