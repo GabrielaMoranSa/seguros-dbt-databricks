@@ -1,0 +1,9 @@
+version: 2
+models:
+  - name: dim_region
+    description: 23 regiones (22 + 1 fila asignada)
+    columns:
+      - name: codigo_region
+        data_tests: [unique, not_null]
+      - name: nombre_region
+        data_tests: [unique, not_null]

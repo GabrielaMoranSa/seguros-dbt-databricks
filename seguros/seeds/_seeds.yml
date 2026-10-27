@@ -1,0 +1,11 @@
+version: 2
+
+seeds:
+  - name: regiones
+    description: Las 22 regiones metropolitanas de Francia de antes de 2016 (INSEE, COG 2015)
+    config:
+      column_types:
+        codigo_insee: string
+    columns:
+      - name: codigo_region
+        data_tests: [unique, not_null]

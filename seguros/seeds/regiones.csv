@@ -1,0 +1,23 @@
+codigo_region,codigo_insee,nombre_region
+R11,11,Île-de-France
+R21,21,Champagne-Ardenne
+R22,22,Picardie
+R23,23,Haute-Normandie
+R24,24,Centre
+R25,25,Basse-Normandie
+R26,26,Bourgogne
+R31,31,Nord-Pas-de-Calais
+R41,41,Lorraine
+R42,42,Alsace
+R43,43,Franche-Comté
+R52,52,Pays de la Loire
+R53,53,Bretagne
+R54,54,Poitou-Charentes
+R72,72,Aquitaine
+R73,73,Midi-Pyrénées
+R74,74,Limousin
+R82,82,Rhône-Alpes
+R83,83,Auvergne
+R91,91,Languedoc-Roussillon
+R93,93,Provence-Alpes-Côte d'Azur
+R94,94,Corse

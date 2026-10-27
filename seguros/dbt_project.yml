@@ -31,3 +31,5 @@ models:
     # Los modelos de staging se materializan como vistas
     staging:
       +materialized: view
+    marts:
+      +materialized: table
