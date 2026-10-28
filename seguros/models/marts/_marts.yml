@@ -7,3 +7,15 @@ models:
         data_tests: [unique, not_null]
       - name: nombre_region
         data_tests: [unique, not_null]
+  - name: dim_fecha
+    columns:
+      - name: fecha
+        data_tests: [unique, not_null]
+  - name: dim_vehiculo
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [marca_vehiculo, combustible_vehiculo, potencia_vehiculo]
+    columns:
+      - name: vehiculo_key
+        data_tests: [unique, not_null]

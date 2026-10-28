@@ -19,12 +19,13 @@ and how much they cost (claim severity), by driver, vehicle and region character
 
 
 ## How to run
-5 steps to run the project:
+6 steps to run the project:
 1. Install the dependencies: `pip install -r requirements.txt` from the repo root, in this step it's important the virtual environment active.
 2. Download the data: `python scripts/bajar_fremtpl2.py` from the repo root.
 3. Load the data into Databricks: `python scripts/cargar_fremtpl2.py` from the repo root, in this step it's important the 3 environment variables(DATABRICKS_SERVER_HOSTNAME, DATABRICKS_HTTP_PATH and DATABRICKS_TOKEN).
-4. Build and test the models: `dbt build` from seguros/
-5. Check data freshness: `dbt source freshness` from seguros/
+4. Run `dbt deps` from seguros/
+5. Build and test the models: `dbt build` from seguros/
+6. Check data freshness: `dbt source freshness` from seguros/
 
 Also it is important to add the configuration file ~/.dbt/profiles.yml, who lives outside to the repo
 

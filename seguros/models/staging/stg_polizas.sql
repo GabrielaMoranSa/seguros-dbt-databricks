@@ -9,7 +9,7 @@ select
     cast(DrivAge as bigint)       as edad_conductor,
     cast(BonusMalus as bigint)    as coeficiente_bonus_malus,
     VehBrand                      as marca_vehiculo,
-    VehGas                        as combustible_vehiculo,
+    replace(VehGas, chr(39), '')   as combustible_vehiculo,
     cast(Density as bigint)       as densidad_zona,
     Region                        as region
 from {{ source('raw', 'fremtpl2_freq') }}
