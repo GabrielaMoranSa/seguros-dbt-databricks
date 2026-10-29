@@ -19,3 +19,19 @@ models:
     columns:
       - name: vehiculo_key
         data_tests: [unique, not_null]
+  - name: dim_poliza
+    columns:
+      - name: poliza_id
+        data_tests: [unique, not_null]
+      - name: codigo_region
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_region')
+                field: codigo_region
+      - name: vehiculo_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_vehiculo')
+                field: vehiculo_key
