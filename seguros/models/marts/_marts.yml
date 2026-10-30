@@ -1,27 +1,34 @@
 version: 2
 models:
   - name: dim_region
-    description: 23 regiones (22 + 1 fila asignada)
+    description: "Regions of the portfolio. Grain: one row per region. 22 regions from the regiones seed, plus one assigned row (RSinPoliza) for claims whose policy is not in the portfolio"
     columns:
       - name: codigo_region
+        description: "Region code (e.g. R24). Primary key. RSinPoliza groups the claims without a policy"
         data_tests: [unique, not_null]
       - name: nombre_region
         data_tests: [unique, not_null]
   - name: dim_fecha
+    description: "Calendar of days. Grain: one row per day. Generated with date_spine from 2026-01-01 to 2027-12-31."
     columns:
       - name: fecha
+        description: "Calendar day. Primary key."
         data_tests: [unique, not_null]
   - name: dim_vehiculo
+    description: "Vehicle types. Grain: one row per combination of brand, fuel and power. Built from stg_polizas."
     data_tests:
       - dbt_utils.unique_combination_of_columns:
           arguments:
             combination_of_columns: [marca_vehiculo, combustible_vehiculo, potencia_vehiculo]
     columns:
       - name: vehiculo_key
+        description: "Surrogate key built from marca_vehiculo, combustible_vehiculo and potencia_vehiculo. Primary key."
         data_tests: [unique, not_null]
   - name: dim_poliza
+    description: "Policies. Grain: one row per policy. Built from stg_polizas, plus the stg_siniestros policies that only appear in stg_siniestros: they get region RSinPoliza and NULL attributes."
     columns:
       - name: poliza_id
+        description: "Policy ID (IDpol in the source). Primary key."
         data_tests: [unique, not_null]
       - name: codigo_region
         data_tests:

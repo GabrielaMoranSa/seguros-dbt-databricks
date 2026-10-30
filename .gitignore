@@ -5,3 +5,5 @@ seguros/dbt_packages/
 .venv/
 .DS_Store
 logs/
+__pycache__/
+.pytest_cache/
