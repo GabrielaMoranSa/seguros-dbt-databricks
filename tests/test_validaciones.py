@@ -26,3 +26,16 @@ def test_sev_sin_idpol_se_para(tmp_path):
     ruta.write_text("IDpol,ClaimAmount\n1,100.0\n,250.0\n")
     df, problemas = validar_sev(ruta)
     assert problemas == ["IDpol vacío en 1 filas"]
+
+
+def test_freq_con_ClaimNb_negativo_se_para(tmp_path):
+    ruta = tmp_path / "freq.csv"
+    ruta.write_text(CABECERA_FREQ + "1,-2,0.5,D,5,0,55,50,B12,Regular,1217,R82\n")
+    df, problemas = validar_freq(ruta)
+    assert problemas == ["ClaimNb negativo en 1 filas"]
+
+def test_freq_con_exposure_cero_se_para(tmp_path):
+    ruta = tmp_path / "fre.csv"
+    ruta.write_text(CABECERA_FREQ + "1,0,0,D,5,0,55,50,B12,Regular,1217,R82\n")
+    df, problemas = validar_freq(ruta)
+    assert problemas == ["Exposure menor o igual a 0 en 1 filas"]
