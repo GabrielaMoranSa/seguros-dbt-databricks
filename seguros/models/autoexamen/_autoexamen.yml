@@ -1,0 +1,9 @@
+models:
+  - name: stg_reparaciones
+    columns:
+      - name: reparacion_id
+        data_tests: [unique, not_null]
+  - name: dim_taller
+    columns:
+      - name: codigo_taller
+        data_tests: [unique, not_null]
