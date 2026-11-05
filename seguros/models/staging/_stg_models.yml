@@ -23,3 +23,34 @@ models:
                 field: poliza_id
               config:
                 severity: warn
+  - name: stg_mov_polizas
+    columns:
+      - name: movimiento_id
+        data_tests: [unique, not_null]
+      - name: poliza_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_polizas')
+                field: poliza_id
+      - name: tipo_movimiento
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['ALTA', 'SUPLEMENTO', 'ANULACION', 'REHABILITACION']
+  - name: stg_mov_siniestros
+    columns:
+      - name: movimiento_id
+        data_tests: [unique, not_null]
+      - name: poliza_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_polizas')
+                field: poliza_id
+      - name: tipo_movimiento
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['APERTURA', 'AJUSTE_RESERVA', 'PAGO', 'CIERRE']
+            
