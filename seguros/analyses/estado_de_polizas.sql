@@ -2,11 +2,11 @@
 with movimientos_numerados as (
     select
         poliza_id,
-        tipo,
+        tipo_movimiento as tipo,
         fecha_efecto,
         fecha_movimiento,
         row_number() over (partition by poliza_id order by fecha_efecto desc) as orden
-    from workspace.raw.mov_polizas
+    from workspace.dbt_gaby.stg_mov_polizas
 )
 select
     case when tipo = 'ANULACION' then 'Anulada' else 'Vigente' end as estado,
