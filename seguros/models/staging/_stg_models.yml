@@ -24,6 +24,7 @@ models:
               config:
                 severity: warn
   - name: stg_mov_polizas
+    description: "Staging of raw.mov_polizas: renamed columns and fixed types. One row per policy movement. Same movement types as the source"
     columns:
       - name: movimiento_id
         data_tests: [unique, not_null]
@@ -39,6 +40,7 @@ models:
               arguments:
                 values: ['ALTA', 'SUPLEMENTO', 'ANULACION', 'REHABILITACION']
   - name: stg_mov_siniestros
+    description: "Staging of raw.mov_siniestros: renamed columns and fixed types. One row per claim movement. Same movement types as the source"
     columns:
       - name: movimiento_id
         data_tests: [unique, not_null]

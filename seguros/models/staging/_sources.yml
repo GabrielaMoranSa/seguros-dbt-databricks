@@ -30,7 +30,9 @@ sources:
                   config:
                     severity: warn
       - name: mov_polizas
+        description: "Daily batches of generated policy movements (synthetic data). One row per policy movement. Types: ALTA (new policy), SUPLEMENTO (endorsement), ANULACION (cancellation), REHABILITACION (reinstatement)"
       - name: mov_siniestros
+        description: "Daily batches of generated claim movements (synthetic data). One row per claim movement. Types: APERTURA (open claim), AJUSTE_RESERVA (reserve adjustament), PAGO (payment), CIERRE (claim closed)"
     config:
       freshness:
         warn_after: {count: 24, period: hour}
