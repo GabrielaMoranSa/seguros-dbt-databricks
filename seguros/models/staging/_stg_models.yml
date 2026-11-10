@@ -29,7 +29,8 @@ models:
       - name: movimiento_id
         data_tests: [unique, not_null]
       - name: poliza_id
-        data_tests:
+        data_tests: 
+          - not_null
           - relationships:
               arguments:
                 to: ref('stg_polizas')
@@ -55,4 +56,6 @@ models:
           - accepted_values:
               arguments:
                 values: ['APERTURA', 'AJUSTE_RESERVA', 'PAGO', 'CIERRE']
+      - name: siniestro_id
+        data_tests: [not_null]
             

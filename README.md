@@ -34,6 +34,13 @@ and how much they cost (claim severity), by driver, vehicle and region character
 
 Also it is important to add the configuration file ~/.dbt/profiles.yml, who lives outside to the repo
 
+## How we work
+
+- Main is protected.
+- Each changed inside branch, with de name w5/dNN
+- First enter with a PR and then merge with the merge commit.
+- Next steps: automatically checks
+
 ## Project layout
 
 scripts/
@@ -64,3 +71,5 @@ Already done: The loader, loader rules in validaciones.py, covered by 8 pytest t
 
 Planned:
 Coverage gaps
+
+
