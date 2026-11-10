@@ -1,0 +1,24 @@
+name: pytest
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Traer el código del PR
+        uses: actions/checkout@v4
+
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Instalar las dependencias
+        run: pip install -r requirements.txt
+
+      - name: Los tests de Python
+        run: python -m pytest -v
