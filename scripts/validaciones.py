@@ -58,7 +58,7 @@ def validar_freq(ruta: Path):
     if n_claimnb_negativo > 0:
         problemas.append(f"ClaimNb negativo en {n_claimnb_negativo} filas")
 
-    n_exposure_no_positiva = (df["Exposure"] < 0).sum()
+    n_exposure_no_positiva = (df["Exposure"] <= 0).sum()
     if n_exposure_no_positiva > 0:
         problemas.append(f"Exposure menor o igual a 0 en {n_exposure_no_positiva} filas")
 
