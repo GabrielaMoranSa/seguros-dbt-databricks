@@ -41,7 +41,7 @@ models:
         data_tests:
           - accepted_values:
               arguments:
-                values: ['ALTA', 'SUPLEMENTO', 'ANULACION']
+                values: ['ALTA', 'SUPLEMENTO', 'ANULACION', 'REHABILITACION']
   - name: stg_mov_siniestros
     description: "Staging of raw.mov_siniestros: renamed columns and fixed types. One row per claim movement. Same movement types as the source"
     columns:
