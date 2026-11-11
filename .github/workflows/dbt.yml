@@ -1,0 +1,35 @@
+name: dbt
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  dbt-build:
+    runs-on: ubuntu-latest
+    env:
+      DBT_PROFILES_DIR: ${{ github.workspace }}/.github/dbt
+      DATABRICKS_SERVER_HOSTNAME: ${{ secrets.DATABRICKS_SERVER_HOSTNAME }}
+      DATABRICKS_HTTP_PATH: ${{ secrets.DATABRICKS_HTTP_PATH }}
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+    defaults:
+      run:
+        working-directory: seguros
+    steps:
+      - name: Traer el código del PR
+        uses: actions/checkout@v4
+
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Instalar las dependencias
+        run: pip install -r ../requirements.txt
+
+      - name: Los paquetes de dbt
+        run: dbt deps
+
+      - name: Construir y probar, en el esquema de CI
+        run: dbt build --target ci
