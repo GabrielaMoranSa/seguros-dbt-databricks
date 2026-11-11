@@ -1,4 +1,5 @@
 -- Test singular: falla si los siniestros sin póliza crecen en cantidad o en importe
+{{ config(severity = 'error') }}
 with sin_poliza as (
     select
         s.siniestro_id,

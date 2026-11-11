@@ -19,7 +19,9 @@ sources:
                     field: IDpol
                   config:
                     where: "ClaimNb > 0"
-                    severity: warn
+                    severity: error
+                    error_if: ">9116"
+                    warn_if: ">0"
       - name: fremtpl2_sev
         config: 
           freshness: null
@@ -32,7 +34,9 @@ sources:
                     to: source('raw', 'fremtpl2_freq')
                     field: IDpol
                   config:
-                    severity: warn
+                    severity: error
+                    error_if: ">195"
+                    warn_if: ">0"
       - name: mov_polizas
         description: "Daily batches of generated policy movements (synthetic data). One row per policy movement. Types: ALTA (new policy), SUPLEMENTO (endorsement), ANULACION (cancellation), REHABILITACION (reinstatement)"
       - name: mov_siniestros
