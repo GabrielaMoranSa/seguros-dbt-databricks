@@ -39,7 +39,8 @@ Also it is important to add the configuration file ~/.dbt/profiles.yml, who live
 - Main is protected.
 - Each changed inside branch, with de name w5/dNN
 - First enter with a PR and then merge with the merge commit.
-- Next steps: automatically checks
+- Each PR have two checks pytest and dbt-build
+- CI details: [docs/ci.md](docs/ci.md)
 
 ## Project layout
 

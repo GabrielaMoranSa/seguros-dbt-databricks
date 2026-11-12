@@ -22,7 +22,9 @@ models:
                 to: ref('stg_polizas')
                 field: poliza_id
               config:
-                severity: warn
+                severity: error
+                error_if: ">195"
+                warn_if: ">0"
   - name: stg_mov_polizas
     description: "Staging of raw.mov_polizas: renamed columns and fixed types. One row per policy movement. Same movement types as the source"
     columns:
