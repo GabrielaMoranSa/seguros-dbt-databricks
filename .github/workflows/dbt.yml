@@ -8,28 +8,40 @@ jobs:
   dbt-build:
     runs-on: ubuntu-latest
     env:
-      DBT_PROFILES_DIR: ${{ github.workspace }}/.github/dbt
+      DBT_PROFILES_DIR: ${{ github.workspace }}/pr/.github/dbt
       DATABRICKS_SERVER_HOSTNAME: ${{ secrets.DATABRICKS_SERVER_HOSTNAME }}
       DATABRICKS_HTTP_PATH: ${{ secrets.DATABRICKS_HTTP_PATH }}
       DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
-    defaults:
-      run:
-        working-directory: seguros
     steps:
-      - name: Traer el código del PR
+      - name: El código del PR
         uses: actions/checkout@v4
+        with:
+          path: pr
 
-      - name: Python 3.12
+      - name: El código de main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main
+
+      - name: Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
           cache: pip
+          cache-dependency-path: pr/requirements.txt
 
-      - name: Instalar las dependencias
-        run: pip install -r ../requirements.txt
+      - name: Instalar dependencias
+        run: pip install -r pr/requirements.txt
 
-      - name: Los paquetes de dbt
-        run: dbt deps
+      - name: El plano de main
+        working-directory: main/seguros
+        run: |
+          dbt deps
+          dbt parse --target prod --target-path ${{ github.workspace }}/estado_main
 
-      - name: Construir y probar, en el esquema de CI
-        run: dbt build --target ci
+      - name: Construir solo lo que cambia y lo que cuelga de ello
+        working-directory: pr/seguros
+        run: |
+          dbt deps
+          dbt build --target ci --select state:modified+ --defer --favor-state --state ${{ github.workspace }}/estado_main
