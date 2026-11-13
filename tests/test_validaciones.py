@@ -71,3 +71,18 @@ def test_sev_sin_filas_se_para(tmp_path):
     df, problemas = validar_sev(ruta)
     # comprobar: mensaje de la línea 35
     assert problemas == ["el archivo no tiene filas"]
+
+
+def test_freq_con_una_columna_de_mas_se_para(tmp_path):
+    ruta = tmp_path / "freq.csv"
+    cabecera = CABECERA_FREQ.replace("\n", ",Extra\n")
+    fila = POLIZA.format(id=1).replace("\n", ",x\n")
+    ruta.write_text(cabecera + fila)
+    df, problemas = validar_freq(ruta)
+    assert problemas == ["sobran columnas: ['Extra']"]    
+
+def test_sev_con_una_columna_de_mas_se_para(tmp_path):
+    ruta = tmp_path / "sev.csv"
+    ruta.write_text("IDpol,ClaimAmount,Extra\n1,100.0,x\n")
+    df, problemas = validar_sev(ruta)
+    assert problemas == ["sobran columnas: ['Extra']"]   

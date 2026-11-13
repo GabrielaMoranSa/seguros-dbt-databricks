@@ -1,13 +1,13 @@
 ## CI
 
 ## What the CI checks:
-The CI checks: pytest and dbt-build.
+The CI checks: pytest and dbt-build. (dbt-build only build the models and dependences had changed it, it's not for all the project. To the orher parts it takes
+borrow of dbt_gaby )
 Pytest looks:
 - all the test Python validation: test_validaciones(loader) and the test_generador
 dbt_build looks:
 - models
 - dbt tests
-all this things are building en dbt_ci
 
 ## What blocks a pull request: 
 
