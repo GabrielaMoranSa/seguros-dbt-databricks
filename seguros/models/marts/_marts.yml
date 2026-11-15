@@ -2,6 +2,13 @@ version: 2
 models:
   - name: dim_region
     description: "Regions of the portfolio. Grain: one row per region. 22 regions from the regiones seed, plus one assigned row (RSinPoliza) for claims whose policy is not in the portfolio"
+    config:
+      meta:
+        owner: suscripcion
+      databricks_tags:
+        dominio: territorio
+      grants:
+        select: ['account users']
     columns:
       - name: codigo_region
         description: "Region code (e.g. R24). Primary key. RSinPoliza groups the claims without a policy"
@@ -10,12 +17,22 @@ models:
         data_tests: [unique, not_null]
   - name: dim_fecha
     description: "Calendar of days. Grain: one row per day. Generated with date_spine from 2026-01-01 to 2027-12-31."
+    config:
+      meta:
+        owner: finanzas
+      databricks_tags:
+        dominio: calendario
     columns:
       - name: fecha
         description: "Calendar day. Primary key."
         data_tests: [unique, not_null]
   - name: dim_vehiculo
     description: "Vehicle types. Grain: one row per combination of brand, fuel and power. Built from stg_polizas."
+    config:
+      meta:
+        owner: suscripcion
+      databricks_tags:
+        dominio: vehiculo
     data_tests:
       - dbt_utils.unique_combination_of_columns:
           arguments:
@@ -26,10 +43,23 @@ models:
         data_tests: [unique, not_null]
   - name: dim_poliza
     description: "Policies. Grain: one row per policy. Built from stg_polizas, plus the stg_siniestros policies that only appear in stg_siniestros: they get region RSinPoliza and NULL attributes."
+    config:
+      meta:
+        owner: suscripcion
+      databricks_tags:
+        dominio: cartera
     columns:
       - name: poliza_id
         description: "Policy ID (IDpol in the source). Primary key."
         data_tests: [unique, not_null]
+        databricks_tags: 
+          sensibilidad: personal
+      - name: edad_conductor
+        databricks_tags: 
+          sensibilidad: personal
+      - name: coeficiente_bonus_malus
+        databricks_tags: 
+          sensibilidad: personal  
       - name: codigo_region
         data_tests:
           - relationships:
