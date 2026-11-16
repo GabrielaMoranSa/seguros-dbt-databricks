@@ -1,0 +1,7 @@
+snapshots:
+  - name: snap_estado_poliza
+    relation: ref('int_estado_poliza')
+    config:
+      unique_key: poliza_id
+      strategy: timestamp
+      updated_at: fecha_registro

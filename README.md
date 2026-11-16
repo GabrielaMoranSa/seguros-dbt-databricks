@@ -34,6 +34,16 @@ and how much they cost (claim severity), by driver, vehicle and region character
 
 Also it is important to add the configuration file ~/.dbt/profiles.yml, who lives outside to the repo
 
+## How the project keeps history
+
+- int_estado_poliza, show the last movement status per poliza
+- the snap_estado_poliza save the last status by police in 16 de noviembre 2026, show diferents status, dates, premium, with range dependes how many times do you run the snapshop
+In this moment, we dont have End-of-day reports so we need to use the sql queries save in analyses. We can't responsed which was the portafolio for january 15th
+- Stg_mov_polizas, save all the movements from 01 to 30 january 2026.
+- Unique key: poliza_id, lives in the configuration yml to the snap_estado_poliza 
+- Snapshot is kind of table to produce SCD2
+
+
 ## How we work
 
 - Main is protected.
