@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: int_estado_poliza
+    description: "intermediate of stg_mov_polizas: take the last movement. One row per policy"
+    columns:
+      - name: poliza_id
+        data_tests: [unique]
+
