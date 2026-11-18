@@ -3,5 +3,6 @@ snapshots:
     relation: ref('int_estado_poliza')
     config:
       unique_key: poliza_id
-      strategy: timestamp
+      strategy: check
+      check_cols: ['estado', 'prima_anual', 'fecha_efecto']
       updated_at: fecha_registro
