@@ -18,3 +18,12 @@ def contar_estados(ultimo):
         else: 
             conteo["Vigente"] += 1
     return conteo
+
+
+def estado_a_fecha(movimientos, fecha):
+    """movimientos: lista de diccionarios con poliza_id, tipo y fecha_efecto (un date).
+    Devuelve poliza_id -> tipo de su último movimiento con efecto hasta el día fecha,
+    lo mismo que cuenta contar_estados."""
+    hasta = [m for m in movimientos if m["fecha_efecto"] <= fecha]
+    hasta.sort(key=lambda m: m["fecha_efecto"])
+    return ultimo_movimiento(hasta)

@@ -1,5 +1,7 @@
 # tests/test_estados.py
-from estados import ultimo_movimiento, contar_estados
+from datetime import date
+
+from estados import ultimo_movimiento, contar_estados, estado_a_fecha
 
 
 def test_se_queda_con_el_ultimo():
@@ -43,3 +45,22 @@ def test_el_orden_importa_en_el_historial():
         {"poliza_id": 1, "tipo": "ALTA"},
     ]
     assert ultimo_movimiento(movimientos_termina_alta) == {1: "ALTA"}
+
+
+def test_anulada_y_rehabilitada_segun_la_fecha():
+    # Alta el 1-ene, anulada el 10-ene, rehabilitada el 20-ene
+    movimientos = [
+        {"poliza_id": 1, "tipo": "ALTA", "fecha_efecto": date(2026, 1, 1)},
+        {"poliza_id": 1, "tipo": "ANULACION", "fecha_efecto": date(2026, 1, 10)},
+        {"poliza_id": 1, "tipo": "REHABILITACION", "fecha_efecto": date(2026, 1, 20)},
+    ]
+    assert estado_a_fecha(movimientos, date(2026, 1, 15)) == {1: "ANULACION"}
+    assert estado_a_fecha(movimientos, date(2026, 1, 25)) == {1: 'REHABILITACION'}
+
+
+def test_alta_despues_de_la_fecha():
+    # Alta el 20-ene, preguntada el 15-ene
+    movimientos = [
+        {"poliza_id": 1, "tipo": "ALTA", "fecha_efecto": date(2026, 1, 20)},
+    ]
+    assert estado_a_fecha(movimientos, date(2026, 1, 15)) == {}
