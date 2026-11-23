@@ -1,4 +1,6 @@
 # tests/test_estados.py
+import pytest
+
 from datetime import date
 
 from estados import ultimo_movimiento, contar_estados, estado_a_fecha
@@ -64,3 +66,26 @@ def test_alta_despues_de_la_fecha():
         {"poliza_id": 1, "tipo": "ALTA", "fecha_efecto": date(2026, 1, 20)},
     ]
     assert estado_a_fecha(movimientos, date(2026, 1, 15)) == {}
+
+
+@pytest.fixture
+def vida_de_una_poliza():
+    """Una póliza con alta, suplemento, anulación y rehabilitación."""
+    return [
+        {"poliza_id": 7, "tipo": "ALTA", "fecha_efecto": date(2026, 1, 5)},
+        {"poliza_id": 7, "tipo": "SUPLEMENTO", "fecha_efecto": date(2026, 1, 20)},
+        {"poliza_id": 7, "tipo": "ANULACION", "fecha_efecto": date(2026, 2, 1)},
+        {"poliza_id": 7, "tipo": "REHABILITACION", "fecha_efecto": date(2026, 2, 10)},
+    ]
+
+
+@pytest.mark.parametrize("fecha, esperado", [
+    (date(2026, 1, 4), {"Vigente": 0, "Anulada": 0}),
+    (date(2026, 1, 5), {"Vigente": 1, "Anulada": 0}),
+    (date(2026, 1, 20), {"Vigente": 1, "Anulada": 0}),
+    (date(2026, 2, 1), {"Vigente": 0, "Anulada": 1}), 
+    (date(2026, 2, 20), {"Vigente": 1, "Anulada": 0}),
+   
+])
+def test_estado_a_cada_fecha(vida_de_una_poliza, fecha, esperado):
+    assert contar_estados(estado_a_fecha(vida_de_una_poliza, fecha)) == esperado    
