@@ -14,5 +14,5 @@ with pagos as (
 
 select * from pagos
 {% if is_incremental() %}
-where fecha_movimiento >= (select coalesce(max(fecha_movimiento), cast('1900-01-01' as date)) from {{ this }})
+where fecha_movimiento >= (select date_sub(coalesce(max(fecha_movimiento), cast('1900-01-01' as date)), 2) from {{ this }})
 {% endif %}

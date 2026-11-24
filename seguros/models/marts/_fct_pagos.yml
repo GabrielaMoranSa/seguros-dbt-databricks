@@ -11,3 +11,5 @@ models:
               arguments:
                 to: ref('dim_poliza')
                 field: poliza_id
+      - name: pago
+        data_tests: [no_negativo]

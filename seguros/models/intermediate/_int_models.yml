@@ -6,4 +6,6 @@ models:
     columns:
       - name: poliza_id
         data_tests: [unique]
+      - name: prima_anual
+        data_tests: [no_negativo]
 
