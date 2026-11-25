@@ -10,11 +10,11 @@ dbt_build looks:
 - dbt tests
 
 ## Incremental models
-- fct_pagos, currently is the ones incremental models, using a unique key with movimiento_id
-- After the first run (complete), every run only merge de new rows and read twice the day last day
-- The proccess using the max movement date to filter the dbt build
-- The current mistake is when the load is late and the date is days before, when you run the dbt build doesn't see the data and that information doesn't exist in the table. Today 13 rows doesn't exist because the max movement day is february 14th but it was a load to february 12th so dbt build didn't take it
+- fct_pagos, currently is the ones incremental models, using a unique key with movimiento_id.
+- After the first run (complete), every run only merge de new rows, and re-reads the last two days.
+- The filter starts two days before the latest movement date already in the table.
 - fct_pagos is new and before today never had load in Databricks in the schema dbt_ci. Today run complete the table and after today run the merge 
+- Wednesday of CI is green with 198 rows but in my Mac have 185 rows. No test compares fct_pagos with staging.
 
 ## What blocks a pull request: 
 
