@@ -38,3 +38,8 @@ models:
         columns: true
     intermediate:
       +materialized: view
+snapshots:
+  seguros:
+    +persist_docs:
+      relation: true
+      columns: true

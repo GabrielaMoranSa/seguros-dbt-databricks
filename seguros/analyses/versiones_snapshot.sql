@@ -1,4 +1,4 @@
--- Versiones nuevas de la segunda foto y cuántas no cambian ni estado ni prima
+-- Versiones nuevas de la tercera foto y cuántas no cambian ni estado ni prima
 with versiones as (
     select
         poliza_id,
@@ -13,4 +13,4 @@ select
     count(*) as versiones_nuevas,
     count_if(estado = estado_anterior and prima_anual = prima_anterior) as sin_cambio
 from versiones
-where estado_anterior is not null
+where estado_anterior is not null and dbt_valid_from >= '2026-02-10'
