@@ -2,6 +2,12 @@ version: 2
 
 models:
   - name: fct_pagos
+    description: >
+      One row per payment (movimiento_id).
+      Incremental model (merge) with unique_key movimiento_id.
+      Each run reprocesses the last 2 days before the latest loaded date,
+      so a batch that arrives up to 2 days late is picked up.
+      A batch that arrives more than 2 days late is not loaded and no test catches it.
     columns:
       - name: movimiento_id
         data_tests: [unique, not_null]

@@ -4,6 +4,7 @@
 | Siniestros · una fila por siniestro con importe | ✓ | ✓ | ✓ | ✓ | — |
 | Movimientos de póliza · una fila por movimiento de póliza | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Movimientos de siniestro · una fila por movimiento de siniestro | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Pagos (W6) · una fila por pago(movimiento_id)| ✓ | ✓ | ✓ | ✓ | ✓ |
 | Cobros de primas (W7) · una fila por cobro | ✓ | ✓ | ✓ | ✓ | ✓ |
 
 Cliente:  no tiene información del cliente, lo traería una tabla de clientes donde traiga todo el perfil.

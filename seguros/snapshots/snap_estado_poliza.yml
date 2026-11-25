@@ -1,5 +1,11 @@
 snapshots:
   - name: snap_estado_poliza
+    description: >
+      snapshot of one row per policy version.
+      It tracks changes in estado, prima_anual and fecha_efecto. (strategy: check).
+      History is only tracked from the first snapshot run (data up to 2026-01-30), earlier dbt_valid_from values come from fecha_registro
+      It does not contain changes that happen between two snapshot runs, those are only in the movements.
+
     relation: ref('int_estado_poliza')
     config:
       unique_key: poliza_id
