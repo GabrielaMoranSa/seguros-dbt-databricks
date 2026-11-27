@@ -1,3 +1,4 @@
+-- grano: una fila por movimiento de siniestro (movimiento_id) 
 SELECT
 cast(movimiento_id as string) AS movimiento_id,
 cast(siniestro_id as string) AS siniestro_id,
